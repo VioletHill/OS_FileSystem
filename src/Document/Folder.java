@@ -19,50 +19,47 @@ import javax.swing.JTextField;
 
 public class Folder extends MyDocument
 {
-	FolderPanel folderView=new FolderPanel();
-	JTextField nameField;
-
-	class FolderPanel extends JPanel
-	{
-		JPanel folderPanel;
-		void setFolderPanel()
+	FolderViewPanel  folderView=new FolderViewPanel();
+	
+	class FolderViewPanel extends JPanel
+	{	
+		void setViewPanel()
 		{
-			folderPanel=new JPanel();
-			folderPanel.setBackground(Color.white);
-			folderPanel.setBounds(15, 5, 70, 70);
-			folderPanel.addMouseListener(folderMouseListener);
-			ImageIcon img = new ImageIcon("resource/folder.png");
-			JLabel imgLabel = new JLabel(img);
-			folderPanel.add(imgLabel);
-			add(folderPanel);
+			viewPanel.setBackground(Color.white);
+			viewPanel.setBounds(15, 5, 70, 70);
+			viewPanel.addMouseListener(viewMouseListener);
+			viewImg = new ImageIcon("resource/folder.png");
+			JLabel imgLabel = new JLabel(viewImg);
+			viewPanel.add(imgLabel);
+			add(viewPanel);
 		}
 		
 		void setNamePanel()
 		{
-			nameField=new JTextField();
 			nameField.setHorizontalAlignment(JTextField.CENTER);
 			nameField.setEditable(false);
 			nameField.setBackground(Color.white);
 			nameField.setBounds(10, 80, 80, 20);
 			add(nameField);
 		}
-		FolderPanel()
+		
+		FolderViewPanel()
 		{
 			setBackground(Color.white);
 			setLayout(null);
 			setPreferredSize(new Dimension(100,100));
-			setFolderPanel();
+			setViewPanel();
 			setNamePanel();
 		}
 		
-		MouseListener folderMouseListener=new MouseListener()
+		MouseListener viewMouseListener=new MouseListener()
 		{
 
 			public void mouseClicked(MouseEvent e) 
 			{	
 				if (e.getButton()==MouseEvent.BUTTON1 && e.getClickCount()==2)
 				{
-					folderPanel.setBackground(Color.white);
+					viewPanel.setBackground(Color.white);
 					open();
 				}
 				else if (e.getButton()==MouseEvent.BUTTON3)
@@ -102,12 +99,12 @@ public class Folder extends MyDocument
 
 			public void mouseEntered(MouseEvent arg0) 
 			{
-				folderPanel.setBackground(Color.blue);
+				viewPanel.setBackground(Color.blue);
 			}
 
 			public void mouseExited(MouseEvent arg0) 
 			{
-				folderPanel.setBackground(Color.white);
+				viewPanel.setBackground(Color.white);
 			}
 
 			public void mousePressed(MouseEvent arg0) 
@@ -183,6 +180,7 @@ public class Folder extends MyDocument
 		contentPanel=new ContentPanel(fatherContentPanel);
 		getProperty(block);
 		nameField.setText(name);
+		whoAmI="文件夹"; 
 		
 		if (block.data==null) return ;
 		String str=block.data;
@@ -205,6 +203,7 @@ public class Folder extends MyDocument
 			new MyFile(Disk.block[blockIndex],this.contentPanel);
 			str=str.substring(index+1);
 		}
+		
 	}
 	
 	//打开文件夹啊
@@ -257,7 +256,6 @@ public class Folder extends MyDocument
 				fatherContentPanel.refresh();
 			}
 		}
-		
 		
 		return isDelete;
 	}

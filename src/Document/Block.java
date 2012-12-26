@@ -19,11 +19,6 @@ public class Block
 		property=property+"块号:"+new Integer(index).toString()+'\n';
 		property=property+"是否为隐藏文件:"+new Boolean(fcb.isHide).toString();
 	}
-		
-	void showProperty()
-	{
-		JOptionPane.showMessageDialog(null, property);
-	}
 	
 	void setData(String str)
 	{

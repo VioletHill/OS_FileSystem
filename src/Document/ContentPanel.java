@@ -85,7 +85,6 @@ public class ContentPanel extends JPanel
 		}
 		return null;
 	}
-
 	
 	Block getContentBlock()
 	{	

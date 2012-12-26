@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -33,9 +32,8 @@ import javax.swing.JTextField;
 
 public class MyFile extends MyDocument
 {
-	JTextField nameField;
 	Vector<String> bufferString=new Vector(10);
-	FilePanel fileView=new FilePanel();
+	FileViewPanel fileView=new FileViewPanel();
 	
 	int bufferIndex;
 	int fontSize;
@@ -51,36 +49,33 @@ public class MyFile extends MyDocument
 	JMenuItem redo;
 	
 	
-	class FilePanel extends JPanel
+	class FileViewPanel extends JPanel
 	{
-		JPanel filePanel;
-		void setFolderPanel()
+		void setViewPanel()
 		{
-			filePanel=new JPanel();
-			filePanel.setBackground(Color.white);
-			filePanel.setBounds(15, 5, 70, 70);
-			filePanel.addMouseListener(fileMouseListener);
-			ImageIcon img = new ImageIcon("resource/file.png");
-			JLabel imgLabel = new JLabel(img);
-			filePanel.add(imgLabel);
-			add(filePanel);
+			viewPanel.setBackground(Color.white);
+			viewPanel.setBounds(15, 5, 70, 70);
+			viewPanel.addMouseListener(fileMouseListener);
+			viewImg = new ImageIcon("resource/file.png");
+			JLabel imgLabel = new JLabel(viewImg);
+			viewPanel.add(imgLabel);
+			add(viewPanel);
 		}
 		
 		void setNamePanel()
 		{
-			nameField=new JTextField();
 			nameField.setHorizontalAlignment(JTextField.CENTER);
 			nameField.setEditable(false);
 			nameField.setBackground(Color.white);
 			nameField.setBounds(10, 80, 80, 20);
 			add(nameField);
 		}
-		FilePanel()
+		FileViewPanel()
 		{
 			setLayout(null);
 			setBackground(Color.white);
 			setPreferredSize(new Dimension(100,100));
-			setFolderPanel();
+			setViewPanel();
 			setNamePanel();
 		}
 		
@@ -129,29 +124,27 @@ public class MyFile extends MyDocument
 				}
 				if (e.getButton()==MouseEvent.BUTTON1 && e.getClickCount()==2)
 				{
-					filePanel.setBackground(Color.white);
+					viewPanel.setBackground(Color.white);
 					open();
 				}
 			}
 
 			public void mouseEntered(MouseEvent arg0) 
 			{
-				filePanel.setBackground(Color.blue);
+				viewPanel.setBackground(Color.blue);
 			}
 
 			public void mouseExited(MouseEvent arg0) 
 			{
-				filePanel.setBackground(Color.white);
+				viewPanel.setBackground(Color.white);
 			}
 
 			public void mousePressed(MouseEvent arg0) 
-			{
-				
+			{			
 			}
 
 			public void mouseReleased(MouseEvent e) 
-			{
-				
+			{		
 			}
 			
 			ActionListener openMenuListener = new ActionListener() 
@@ -264,6 +257,7 @@ public class MyFile extends MyDocument
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.addWindowListener(closeListener); 
 	}
+	
 	public MyFile(ContentPanel father)
 	{
 		fatherContentPanel=father;
@@ -290,6 +284,7 @@ public class MyFile extends MyDocument
 		nameField.setText(name);
 		text=block.data;
 		if (text==null) text="";
+		whoAmI="нд╪Ч";
 	}
 	
 	public void create()
