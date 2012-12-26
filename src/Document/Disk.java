@@ -28,7 +28,6 @@ import javax.swing.JPopupMenu;
 
 class Fat
 {
-	int removeCount=0;
 	final static int totBlock=10;		//由于这里采用位运算，所以实际的Block总数为totBlock*10；
 	int[] useBlock=new int[totBlock];		
 	Block getBlock()
